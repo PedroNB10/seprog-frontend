@@ -1,13 +1,57 @@
+
+
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
+
 config.autoAddCss = false;
 
 import Circle from "./components/Circle";
 import ByronCard from "./components/ByronCard";
 
 export default function Home() {
+  let partipantData = [
+
+    {
+      img: { src: "/img/logo-byron-quadrado.jpg", alt: "Logo da byron" },
+      name: "byron.solutions",
+      content: "Conteúdos de CSS, HTML e JS.",
+      longContent: "A byron.solutions é uma empresa júnior que atua no ramo de consultoria em TI, com soluções em desenvolvimento de sistemas, de sites e inclusão digital de pequenas empresas. É composta por alunos dos cursos de Sistemas de Informação, Ciência da Computação e Engenharia da Computação.",
+      social: { href: "https://www.instagram.com/byron.solutions/", name: "byron.solutions" }
+
+    },
+
+    {
+      img: { src: "/img/logo-byron-quadrado.jpg", alt: "Logo da byron" },
+      name: "byron.solutions",
+      content: "Conteúdos de CSS, HTML e JS.",
+      longContent: "A byron.solutions é uma empresa júnior que atua no ramo de consultoria em TI, com soluções em desenvolvimento de sistemas, de sites e inclusão digital de pequenas empresas. É composta por alunos dos cursos de Sistemas de Informação, Ciência da Computação e Engenharia da Computação.",
+      social: { href: "https://www.instagram.com/byron.solutions/", name: "byron.solutions" }
+
+    },
+
+    {
+      img: { src: "/img/logo-byron-quadrado.jpg", alt: "Logo da byron" },
+      name: "byron.solutions",
+      content: "Conteúdos de CSS, HTML e JS.",
+      longContent: "A byron.solutions é uma empresa júnior que atua no ramo de consultoria em TI, com soluções em desenvolvimento de sistemas, de sites e inclusão digital de pequenas empresas. É composta por alunos dos cursos de Sistemas de Informação, Ciência da Computação e Engenharia da Computação.",
+      social: { href: "https://www.instagram.com/byron.solutions/", name: "byron.solutions" }
+
+    },
+
+    {
+      img: { src: "/img/logo-byron-quadrado.jpg", alt: "Logo da byron" },
+      name: "byron.solutions",
+      content: "Conteúdos de CSS, HTML e JS.",
+      longContent: "A byron.solutions é uma empresa júnior que atua no ramo de consultoria em TI, com soluções em desenvolvimento de sistemas, de sites e inclusão digital de pequenas empresas. É composta por alunos dos cursos de Sistemas de Informação, Ciência da Computação e Engenharia da Computação.",
+      social: { href: "https://www.instagram.com/byron.solutions/", name: "byron.solutions" }
+
+    }
+
+  ]
+
   return (
     <>
       <section className="flex items-center justify-center bg-gradient-to-b from-blue-lightest to-blue-dark text-white py-12">
@@ -60,10 +104,11 @@ export default function Home() {
 
             <div className="grid grid-cols-2 grid-rows-2 gap-8 mt-12">
 
-              <ByronCard />
-              <ByronCard />
-              <ByronCard />
-              <ByronCard />
+              {partipantData.map((data, index) => {
+                return <ByronCard data={data} key={index} />
+              })}
+
+
             </div>
 
             <button className="mx-auto my-20 flex items-center bg-yellow rounded-xl text-xl shadow py-3 px-8 self-start gap-4 focus:scale-110 hover:scale-110 transition-all">
