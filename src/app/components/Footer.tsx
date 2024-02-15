@@ -1,10 +1,9 @@
 
-
 export default function Footer() {
 
     return (
 
-        <footer className=" bg-blue-dark text-white">
+        <footer id="organizadores" className=" bg-blue-dark text-white">
 
             <div className="flex  items-center justify-center py-4 max-w-6xl  mx-auto gap-32">
                 {/* div das imagens em cima da logo da byron */}

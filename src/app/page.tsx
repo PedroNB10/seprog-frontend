@@ -2,16 +2,127 @@
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
+
+
+
+import React, { Fragment } from 'react'
 
 config.autoAddCss = false;
 
-import Circle from "./components/Circle";
+// import ByronCard from "./components/ByronCard";
+import { Tab } from "@headlessui/react";
+import { IHomepage, Attributes } from "./interfaces/IHomepage";
+
+
+import axiosHeader from "./api/axiosHeader";
+import { NextPageContext } from "next";
 import ByronCard from "./components/ByronCard";
 
-export default function Home() {
+import { TabGroup } from './components/TabGroup'
+
+let tabsData = [
+  {
+    id: 10,
+    tab: {
+      day: "Segunda-feira (19/09)",
+      person: "byron.solutions",
+      description: "Desenvolvimento de um portfólio pessoal"
+
+    },
+    content: {
+      title: "Desenvolvimento de um portfólio pessoal",
+      text: "Teoria: O mini-curso terá como objetivo o ensinamento do clico básico do desenvolvimento web, contemplando HTML, CSS e JS."
+    }
+
+  },
+
+  {
+    id: 20,
+    tab: {
+      day: "Terça-feira (20/09)",
+      person: "byron.solutions",
+      description: "Desenvolvimento de um portfólio pessoal"
+
+    },
+    content: {
+      title: "Yahuu",
+      text: "Teoria: O mini-curso terá como objetivo o ensinamento do clico básico do desenvolvimento web, contemplando HTML, CSS e JS."
+    }
+
+  },
+  {
+    id: 30,
+    tab: {
+      day: "Quarta-feira (21/09)",
+      person: "byron.solutions",
+      description: "Desenvolvimento de um portfólio pessoal"
+
+    },
+    content: {
+      title: "Ebaa",
+      text: "Teoria: O mini-curso terá como objetivo o ensinamento do clico básico do desenvolvimento web, contemplando HTML, CSS e JS."
+    }
+
+  },
+  {
+    id: 40,
+    tab: {
+      day: "Quinta-feira (22/09)",
+      person: "byron.solutions",
+      description: "Desenvolvimento de um portfólio pessoal"
+
+    },
+    content: {
+      title: "Ebaa",
+      text: "Teoria: O mini-curso terá como objetivo o ensinamento do clico básico do desenvolvimento web, contemplando HTML, CSS e JS."
+    }
+
+  },
+  {
+    id: 50,
+    tab: {
+      day: "Sexta-feira (23/09)",
+      person: "byron.solutions",
+      description: "Desenvolvimento de um portfólio pessoal"
+
+    },
+    content: {
+      title: "Ebaa",
+      text: "Teoria: O mini-curso terá como objetivo o ensinamento do clico básico do desenvolvimento web, contemplando HTML, CSS e JS."
+    }
+
+  }
+]
+
+
+
+
+interface IProps {
+  data: Attributes
+}
+
+async function getData(): Promise<{ props: IProps }> {
+  try {
+    const response = await axiosHeader.get<IHomepage>('home?populate=*');
+    const responseData: IHomepage = response.data;
+    // console.log("Buscando");
+    // console.log(responseData);
+
+    return {
+      props: { data: responseData.data.attributes }
+    };
+  } catch (error) {
+    throw new Error("Erro ao buscar dados da API");
+  }
+}
+
+
+export default async function Home({ data }: IProps) {
+  const responseData = await getData()
+
+  console.log(responseData);
+
   let partipantData = [
 
     {
@@ -78,7 +189,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex items-center justify-center bg-blue-dark text-white py-12">
+      <section id="sobre" className="flex items-center justify-center bg-blue-dark text-white py-12">
         <div className="flex flex-col items-center max-w-6xl w-full ">
           {/* primeira subseção */}
           <div className="flex items-center  max-w-6xl gap-24">
@@ -94,10 +205,6 @@ export default function Home() {
             </div>
 
           </div>
-
-
-
-          {/* segunda subseção */}
 
           <div className="flex flex-col items-center justify-center  max-w-6xl">
             <h2 className="font-bold text-xl mt-36">Aprenda com os melhores!! </h2>
@@ -123,6 +230,82 @@ export default function Home() {
         </div>
       </section>
 
+
+      <section id="programacao" className="flex items-center justify-center bg-gradient-to-b from-blue-dark to-blue-light  text-white py-36">
+        <div className="flex flex-col items-center max-w-6xl w-full">
+          <TabGroup tabsData={tabsData}>
+
+          </TabGroup>
+
+        </div>
+      </section>
+
+      <section className="flex items-center justify-center bg-gradient-to-b from-blue-light to-blue-dark  text-white py-16">
+        <div className="flex flex-col items-center max-w-6xl w-full gap-8 ">
+          <h2 className="text-4xl font-bold drop-shadow" >Localização do evento</h2>
+
+          <div className="w-full" >
+            <iframe
+              className="rounded-[48px] border-4 border-yellow shadow-2xl"
+              width="100%"
+              height="600"
+
+              src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=-22.413660665962524,%20-45.45023733251049+(Unifei)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+
+            </iframe>
+
+          </div>
+
+
+
+          <picture>
+            <img
+              src="/img/mapa.png"
+              alt=""
+              className="w-20 "
+            />
+          </picture>
+
+          <span className="text-4xl font-bold">SEPROG</span>
+
+          <div className="flex flex-col gap-4 items-center text-xl">
+            <span className="text-2xl font-bold">Instituto de Matemática e Computação - UNIFEI</span>
+            <span>Avenida B P S, 1303 - Pinheirinho</span>
+            <span>Itajubá - MG</span>
+
+          </div>
+        </div>
+      </section >
+
+
     </>
   );
+
+
 }
+
+
+// export const getStaticProps = async () => {
+
+//   let res: IHomepage | null = null;
+//   let data = null;
+
+//   try {
+//     const response = await axiosHeader.get<IHomepage>('home?populate=*');
+//     const { data } = response.data;
+//     console.log("Buscando");
+//     console.log(data);
+
+//   } catch (error) {
+//     throw new Error("Erro ao buscar dados da API");
+//   }
+
+//   console.log("Buscando");
+
+
+//   return {
+//     props: { data }
+//   }
+// }
+
+

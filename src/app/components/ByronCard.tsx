@@ -1,9 +1,8 @@
-"use client"
+'use client'
 
 import Circle from "./Circle"
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 interface IProps {
@@ -60,7 +59,6 @@ export default function ByronCard(props: IProps) {
 
 
 
-                        {/* A byron.solutions é uma empresa júnior que atua no ramo de consultoria em TI, com soluções em desenvolvimento de sistemas, de sites e inclusão digital de pequenas empresas. É composta por alunos dos cursos de Sistemas de Informação, Ciência da Computação e Engenharia da Computação. */}
                         <div className="flex flex-col items-center justify-center gap-4">
                             <p className="max-w-[90%] text-2xl  ">{props.data.longContent}</p>
 
@@ -75,23 +73,6 @@ export default function ByronCard(props: IProps) {
 
 
                     </div>
-
-
-
-                    {/* <p>{props.content}</p> */}
-
-
-                    {/* <button className="absolute top-0 right-0 bg-green-400" onClick={() => setIsOpen(false)}>Deactivate</button>
-                    <button className="bg-green-400" onClick={() => setIsOpen(false)}>Cancel</button>
-                    <Dialog.Title>Deactivate account</Dialog.Title>
-                    <Dialog.Description>
-                        This will permanently deactivate your account
-                    </Dialog.Description>
-
-                    <p>
-                        Are you sure you want to deactivate your account? All of your data
-                        will be permanently removed. This action cannot be undone.
-                    </p> */}
 
 
                 </Dialog.Panel>

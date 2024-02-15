@@ -1,8 +1,6 @@
-"use client"
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
-
 
 interface CircleProps {
     icon: any; // TODO: Trocar por um ícone do fontawesome
