@@ -102,15 +102,15 @@ interface IProps {
   data: Attributes
 }
 
-async function getData(): Promise<{ props: IProps }> {
+async function getData(): Promise<{ data: Attributes }> {
   try {
     const response = await axiosHeader.get<IHomepage>('home?populate=*');
-    const responseData: IHomepage = response.data;
+    const data = response.data.data.attributes;
     // console.log("Buscando");
     // console.log(responseData);
 
     return {
-      props: { data: responseData.data.attributes }
+      data
     };
   } catch (error) {
     throw new Error("Erro ao buscar dados da API");
@@ -118,10 +118,10 @@ async function getData(): Promise<{ props: IProps }> {
 }
 
 
-export default async function Home({ data }: IProps) {
-  const responseData = await getData()
+export default async function Home() {
+  const props = await getData()
 
-  console.log(responseData);
+  console.log(props.data.heroDescription);
 
   let partipantData = [
 
