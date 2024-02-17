@@ -1,6 +1,7 @@
 import IEvents from "./IEvents"
 
 interface Attributes {
+    url: string
     tabDay: string
     organizer: string
     theme: string
@@ -11,7 +12,7 @@ interface Attributes {
     events: IEvents
 }
 
-interface Daum {
+export interface DaumSchedules {
     id: number
     attributes: Attributes
 }
@@ -29,7 +30,7 @@ interface Meta {
 
 
 export default interface ISchedules {
-    data: Daum[]
+    data: DaumSchedules[]
     meta: Meta
 }
 

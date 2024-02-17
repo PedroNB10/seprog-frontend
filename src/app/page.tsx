@@ -20,6 +20,8 @@ import { NextPageContext } from "next";
 import ByronCard from "./components/ByronCard";
 
 import { TabGroup } from './components/TabGroup'
+import IOrganizers, { DaumOrganizers } from "./interfaces/IOrganizers";
+import ISchedules, { DaumSchedules } from "./interfaces/ISchedules";
 
 let tabsData = [
   {
@@ -96,22 +98,31 @@ let tabsData = [
 ]
 
 
-
-
 interface IProps {
-  data: Attributes
+  home: IHomepage,
+  organizers: IOrganizers,
+  schedule: ISchedules
 }
 
-async function getData(): Promise<{ data: Attributes }> {
-  try {
-    const response = await axiosHeader.get<IHomepage>('home?populate=*');
-    const data = response.data.data.attributes;
-    // console.log("Buscando");
-    // console.log(responseData);
 
-    return {
-      data
-    };
+
+
+async function getData(): Promise<{ home: Attributes } & { organizers: DaumOrganizers[] } & { schedule: DaumSchedules[] }> {
+  try {
+
+    const homepageRes = await axiosHeader.get<IHomepage>('home');
+    const home = homepageRes.data.data.attributes;
+
+    const organizersRes = await axiosHeader.get<IOrganizers>('organizers?populate=*');
+    const organizers = organizersRes.data.data;
+
+    const scheduleRes = await axiosHeader.get<ISchedules>('programacaos?populate=*');
+    const schedule = scheduleRes.data.data;
+
+
+
+    return { home, organizers, schedule }
+
   } catch (error) {
     throw new Error("Erro ao buscar dados da API");
   }
@@ -120,8 +131,16 @@ async function getData(): Promise<{ data: Attributes }> {
 
 export default async function Home() {
   const props = await getData()
+  // console.log("props");
+  // console.log(props.schedule[0].attributes.tabDay);
+  // console.log(props.organizers[0].attributes.logo.data.attributes.url);
 
-  console.log(props.data.heroDescription);
+  // console.log(props.home.data.attributes.heroDescription);
+  // console.log(props.home.data.attributes.aboutDescription);
+
+
+  // console.log(props.schedule[0].attributes.events);
+
 
   let partipantData = [
 
@@ -169,9 +188,11 @@ export default async function Home() {
         <div className="flex items-center max-w-6xl w-full">
           <div className=" flex flex-col gap-16">
             <div className=" flex flex-col gap-5">
-              <h1 className="text-4xl font-bold drop-shadow-lg">II Semana de Programação</h1>
+              <h1 className="text-4xl font-bold drop-shadow-lg">{props.home.heroTitle}</h1>
+              {/* II Semana de Programação */}
               <p>
-                Se atualize com a evolução da tecnologia! Será uma semana de aprendizado em desenvolvimento web, visão computacional, programação em jogos e maratona de programação.
+                {props.home.heroDescription}
+                {/* Se atualize com a evolução da tecnologia! Será uma semana de aprendizado em desenvolvimento web, visão computacional, programação em jogos e maratona de programação. */}
               </p>
             </div>
             <button className="flex items-center bg-yellow rounded-xl text-xl shadow py-5 px-8 self-start gap-4 focus:scale-110 hover:scale-110 transition-all">
@@ -200,8 +221,10 @@ export default async function Home() {
             <div className="flex flex-col gap-3 w-full">
               <div className="w-24 h-2 bg-white rounded-md" />
               <h3 className="text-lg font-light ">Sobre a SEPROG</h3>
-              <h2 className="text-2xl font-semibold drop-shadow-md">Faça parte dessa evolução!</h2>
-              <p className="">Com sua primeira edição em 2021 no formato EAD, a Semana de Programação vem se tornando um grande evento realizado pelo Instituto de Matemática e Computação da UNIFEI, com o objetivo de mostrar e ensinar conteúdos incríveis, muito fortes no ramo profissional, de uma forma prática, para todos os alunos na universidade.</p>
+              {/* Faça parte dessa evolução! */}
+              <h2 className="text-2xl font-semibold drop-shadow-md">{props.home.aboutTitle}</h2>
+              {/* Com sua primeira edição em 2021 no formato EAD, a Semana de Programação vem se tornando um grande evento realizado pelo Instituto de Matemática e Computação da UNIFEI, com o objetivo de mostrar e ensinar conteúdos incríveis, muito fortes no ramo profissional, de uma forma prática, para todos os alunos na universidade. */}
+              <p className="">{props.home.aboutDescription}</p>
             </div>
 
           </div>
@@ -211,7 +234,8 @@ export default async function Home() {
 
             <div className="grid grid-cols-2 grid-rows-2 gap-8 mt-12">
 
-              {partipantData.map((data, index) => {
+
+              {props.organizers.map((data, index) => {
                 return <ByronCard data={data} key={index} />
               })}
 
@@ -233,7 +257,7 @@ export default async function Home() {
 
       <section id="programacao" className="flex items-center justify-center bg-gradient-to-b from-blue-dark to-blue-light  text-white py-36">
         <div className="flex flex-col items-center max-w-6xl w-full">
-          <TabGroup tabsData={tabsData}>
+          <TabGroup tabsData={props.schedule}>
 
           </TabGroup>
 
