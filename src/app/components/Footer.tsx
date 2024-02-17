@@ -3,13 +3,13 @@ export default function Footer() {
 
     return (
 
-        <footer id="organizadores" className=" bg-blue-dark text-white">
+        <footer id="organizadores" className=" bg-blue-dark text-white flex flex-col items-center ">
 
-            <div className="flex  items-center justify-center py-4 max-w-6xl  mx-auto gap-32">
+            <div className=" grid grid-cols-3 grid-rows-1 py-4 max-w-6xl  gap-32">
                 {/* div das imagens em cima da logo da byron */}
                 <div className="flex flex-col items-center">
                     <img className="w-32" src="/img/unifei.png" alt="Logo da Byron" />
-                    <img className="w-36  left-0" src="/img/imc.png" alt="Logo da Byron" />
+                    <img className="w-36 " src="/img/imc.png" alt="Logo da Byron" />
                 </div>
 
                 <div className="flex flex-col items-center">
